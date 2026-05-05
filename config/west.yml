@@ -11,6 +11,6 @@ manifest:
       import: app/west.yml
     - name: roba
       remote: masaroBa
-      revision: main
+      revision: 9b07780
   self:
     path: config
