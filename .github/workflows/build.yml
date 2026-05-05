@@ -33,13 +33,21 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      # ここから下が roba 専用の設定です
-      - name: West Build (roba)
-        run: west build -s zmk/app -b nice_nano -- -DSHIELD=roba -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 roba_nice_nano_v2.uf2
+# ここから下が roba 専用の設定です
+      # 左側のビルド
+      - name: West Build Left (roba)
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=roba_left -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Rename Left uf2
+        run: cp build/zephyr/zmk.uf2 roba_left.uf2
+
+      # 右側のビルド
+      - name: West Build Right (roba)
+        run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD=roba_right -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Rename Right uf2
+        run: cp build/zephyr/zmk.uf2 roba_right.uf2
+
       - name: Archive (roba)
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: roba_nice_nano_v2.uf2
+          path: "*.uf2"
