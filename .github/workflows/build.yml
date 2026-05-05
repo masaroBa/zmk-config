@@ -35,7 +35,7 @@ jobs:
         run: west zephyr-export
       # ここから下が roba 専用の設定です
       - name: West Build (roba)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=roba -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b nice_nano -- -DSHIELD=roba -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Rename zmk.uf2
         run: cp build/zephyr/zmk.uf2 roba_nice_nano_v2.uf2
       - name: Archive (roba)
