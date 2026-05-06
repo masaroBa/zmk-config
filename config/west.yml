@@ -12,7 +12,5 @@ manifest:
     - name: roba
       remote: masaroBa
       revision: main
-      # ここに path を追加してみてください
-      path: roba
   self:
     path: config
