@@ -2,15 +2,10 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: masaroBa
-      url-base: https://github.com/masaroBa
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: roba
-      remote: masaroBa
-      revision: main
   self:
     path: config
