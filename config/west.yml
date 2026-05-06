@@ -11,6 +11,8 @@ manifest:
       import: app/west.yml
     - name: roba
       remote: masaroBa
-      revision: 9b07780
+      revision: main
+      # ここに path を追加してみてください
+      path: roba
   self:
     path: config
