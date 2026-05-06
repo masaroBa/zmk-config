@@ -22,25 +22,25 @@ jobs:
             zephyr/
             bootloader/
             zmk/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('manifest-dir/west.yml') }}
+          # 先頭に v2- を付けてキャッシュを新しくし、パスを config/west.yml に修正しました
+          key: v2-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('config/west.yml') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            v2-${{ runner.os }}-build-${{ env.cache-name }}-
+            v2-${{ runner.os }}-build-
+            v2-${{ runner.os }}-
       - name: West Init
         run: west init -l config
       - name: West Update
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-# ここから下が roba 専用の設定です
-      # 左側のビルド
+
+      # ここから下が roba 専用の設定（左右別々のビルド）です
       - name: West Build Left (roba)
         run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=roba_left -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Rename Left uf2
         run: cp build/zephyr/zmk.uf2 roba_left.uf2
 
-      # 右側のビルド
       - name: West Build Right (roba)
         run: west build -p -s zmk/app -b nice_nano_v2 -- -DSHIELD=roba_right -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: Rename Right uf2
